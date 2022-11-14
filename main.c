@@ -52,6 +52,7 @@ int execute(char **args, char **front)
 		}
 		if (child_pid == 0)
 		{
+
 			execve(command, args, environ);
 			if (errno == EACCES)
 				ret = (create_error(args, 126));
@@ -78,9 +79,10 @@ int execute(char **args, char **front)
  *
  * Return: The return value of the last executed command.
  */
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
-	int ret = 0, retn;
+	int ret = 0;
+	int retn = 0;
 	int *exe_ret = &retn;
 	char *prompt = "$ ", *new_line = "\n";
 
@@ -89,7 +91,6 @@ int main(int argc, char *argv[])
 	aliases = NULL;
 	signal(SIGINT, sig_handler);
 
-	*exe_ret = 0;
 	environ = _copyenv();
 	if (!environ)
 		exit(-100);
