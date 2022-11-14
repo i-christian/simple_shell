@@ -16,3 +16,12 @@ To invoke **hsh**, compile all `.c` files in the repository and run the resultin
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 ./hsh
 ```
+
+**hsh** can be invoked both interactively and non-interactively. If **hsh** is invoked with standard input not connected to a terminal, it reads and executes received commands in order.
+
+Example:
+```
+$ echo "echo 'hello'" | ./hsh
+'hello'
+$
+```
