@@ -79,7 +79,7 @@ The current working directory as set by the **cd** command.
 
 $ echo "echo $PWD" | ./hsh
 
-/home/vagrant/holberton/simple_shell
+/home/vagrant/simple_shell
 
 ```
 
@@ -95,7 +95,7 @@ The previous working directory as set by the **cd** command.
 
 $ echo "echo $OLDPWD" | ./hsh
 
-/home/vagrant/holberton/printf
+/home/vagrant/printf
 
 ```
 
@@ -111,7 +111,7 @@ A colon-separated list of directories in which the shell looks for commands. A n
 
 $ echo "echo $PATH" | ./hsh
 
-/home/vagrant/.cargo/bin:/home/vagrant/.local/bin:/home/vagrant/.rbenv/plugins/ruby-build/bin:/home/vagrant/.rbenv/shims:/home/vagrant/.rbenv/bin:/home/vagrant/.nvm/versions/node/v10.15.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/vagrant/.cargo/bin:/home/vagrant/workflow:/home/vagrant/.local/bin
+/home/vagrant/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
 ```
 
@@ -145,70 +145,39 @@ If a command is not found, the return status is `127`; if a command is found but
 
 All builtins return zero on success and one or two on incorrect usage (indicated by a corresponding error message).
 
-
-
 ### Signals :exclamation:
-
 
 
 While running in interactive mode, **hsh** ignores the keyboard input `Ctrl+c`. Alternatively, an input of end-of-file (`Ctrl+d`) will exit the program.
 
-
-
 User hits `Ctrl+d` in the third line.
-
 ```
-
 $ ./hsh
-
 $ ^C
-
 $ ^C
-
 $
-
 ```
-
-
 
 ### Variable Replacement :heavy_dollar_sign:
 
-
-
 **hsh** interprets the `$` character for variable replacement.
 
-
-
 #### $ENV_VARIABLE
-
 `ENV_VARIABLE` is substituted with its value.
-
-
-
 Example:
 
 ```
-
 $ echo "echo $PWD" | ./hsh
-
-/home/vagrant/holberton/simple_shell
-
+/home/vagrant/simple_shell
 ```
-
-
-
 #### $?
 
 `?` is substitued with the return value of the last program executed.
 
-
-
 Example:
 
 ```
-
 $ echo "echo $?" | ./hsh
-
 0
 
 ```
