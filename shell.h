@@ -88,8 +88,9 @@ char **_strtok(char *line, char *delim);
 void sig_handler(int sig);
 void sig_handler(int sig);
 int execute(char **args, char **front);
+void launch(char **args, char **front, char *command, int ret);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-
+void loop(int ret, int *exe_ret, char *prompt, char *new_line);
 /*helper functions*/
 
 void free_args(char **args, char **front);

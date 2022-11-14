@@ -14,6 +14,25 @@ void sig_handler(int sig)
 }
 
 /**
+ * launch - launches a child process using execve sys call
+ * @args: An array of arguments.
+ * @front: A double pointer to the beginning of args
+ * @command: pointer to command
+ * @ret: int parameter
+ * Return: Nothing
+ */
+void launch(char **args, char **front, char *command, int ret)
+{
+	execve(command, args, environ);
+	if (errno == EACCES)
+		ret = (create_error(args, 126));
+	free_env();
+	free_args(args, front);
+	free_alias_list(aliases);
+	_exit(ret);
+}
+
+/**
  * execute - Executes a command in a child process.
  * @args: An array of arguments.
  * @front: A double pointer to the beginning of args.
@@ -52,13 +71,7 @@ int execute(char **args, char **front)
 		}
 		if (child_pid == 0)
 		{
-			execve(command, args, environ);
-			if (errno == EACCES)
-				ret = (create_error(args, 126));
-			free_env();
-			free_args(args, front);
-			free_alias_list(aliases);
-			_exit(ret);
+			launch(args, front, command, ret);
 		}
 		else
 		{
@@ -70,6 +83,34 @@ int execute(char **args, char **front)
 		free(command);
 	return (ret);
 }
+
+/**
+ * loop - a function that runs the shell
+ * @ret: parameter
+ * @exe_ret: parameter
+ * @prompt: parameter
+ * @new_line: parameter
+ * Return: Nothing
+ */
+
+void loop(int ret, int *exe_ret, char *prompt, char *new_line)
+{
+
+	while (1)
+	{
+		write(STDOUT_FILENO, prompt, 2);
+		ret = handle_args(exe_ret);
+		if (ret == END_OF_FILE || ret == EXIT)
+		{
+			if (ret == END_OF_FILE)
+				write(STDOUT_FILENO, new_line, 1);
+			free_env();
+			free_alias_list(aliases);
+			exit(*exe_ret);
+		}
+	}
+}
+
 
 /**
  * main - Runs a simple UNIX command interpreter.
@@ -111,22 +152,11 @@ int main(int argc, char **argv)
 		free_alias_list(aliases);
 		return (*exe_ret);
 	}
-
-	while (1)
-	{
-		write(STDOUT_FILENO, prompt, 2);
-		ret = handle_args(exe_ret);
-		if (ret == END_OF_FILE || ret == EXIT)
-		{
-			if (ret == END_OF_FILE)
-				write(STDOUT_FILENO, new_line, 1);
-			free_env();
-			free_alias_list(aliases);
-			exit(*exe_ret);
-		}
-	}
+	/*program runs here*/
+	loop(ret, exe_ret, prompt, new_line);
 
 	free_env();
 	free_alias_list(aliases);
 	return (*exe_ret);
 }
+
