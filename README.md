@@ -25,3 +25,22 @@ $ echo "echo 'hello'" | ./hsh
 'hello'
 $
 ```
+
+If **hsh** is invoked with standard input connected to a terminal (determined by [isatty](https://linux.die.net/man/3/isatty)(3)), an *interactive* shell is opened. When executing interactively, **hsh** displays the prompt `$ ` when it is ready to read a command.
+
+Example:
+```
+$./hsh
+$
+```
+
+Alternatively, if command line arguments are supplied upon invocation, **hsh** treats the first argument as a file from which to read commands. The supplied file should contain one command per line. **hsh** runs each of the commands contained in the file in order before exiting.
+
+Example:
+```
+$ cat test
+echo 'hello'
+$ ./hsh test
+'hello'
+$
+```
