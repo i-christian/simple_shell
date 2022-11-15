@@ -12,7 +12,7 @@ int (*get_builtin(char *command))(char **args, char **front)
 	builtin_t funcs[] = {
 		{ "exit", hsh_exit },
 		{ "env", hsh_env },
-		{ "setenv",hsh_setenv },
+		{ "setenv", hsh_setenv },
 		{ "unsetenv", hsh_unsetenv },
 		{ "cd", hsh_cd },
 		{ "alias", hsh_alias },
@@ -31,7 +31,7 @@ int (*get_builtin(char *command))(char **args, char **front)
 
 /**
  * hsh_exit - Causes normal process termination
- *                for the shellby shell.
+ *                for the hsh shell.
  * @args: An array of arguments containing the exit value.
  * @front: A double pointer to the beginning of args.
  *
@@ -75,7 +75,7 @@ int hsh_exit(char **args, char **front)
 }
 
 /**
- * hsh_cd - Changes the current directory of the shellby process.
+ * hsh_cd - Changes the current directory of the hsh process.
  * @args: An array of arguments.
  * @front: A double pointer to the beginning of args.
  *
@@ -156,7 +156,7 @@ int hsh_cd(char **args, char __attribute__((__unused__)) **front)
 }
 
 /**
- * hsh_help - Displays information about shellby builtin commands.
+ * hsh_help - Displays information about hsh builtin commands.
  * @args: An array of arguments.
  * @front: A pointer to the beginning of args.
  *
