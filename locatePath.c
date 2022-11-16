@@ -46,6 +46,18 @@ char *get_location(char *command)
 }
 
 /**
+ * join_string - joins two strings
+ * @path_copy: param
+ * @pwd: param
+ * Return: Nothing
+ */
+void join_string(char *path_copy, char *pwd)
+{
+	_strcat(path_copy, ":");
+	_strcat(path_copy, pwd);
+}
+
+/**
  * fill_path_dir - Copies path but also replaces leading/sandwiched/trailing
  *		   colons (:) with current working directory.
  * @path: The colon-separated list of directories.
@@ -80,22 +92,15 @@ char *fill_path_dir(char *path)
 		if (path[i] == ':')
 		{
 			if (i == 0)
-			{
-				_strcat(path_copy, pwd);
-				_strcat(path_copy, ":");
-			}
+				join_string(path_copy, pwd);
+
 			else if (path[i + 1] == ':' || path[i + 1] == '\0')
-			{
-				_strcat(path_copy, ":");
-				_strcat(path_copy, pwd);
-			}
+				join_string(path_copy, pwd);
 			else
 				_strcat(path_copy, ":");
 		}
 		else
-		{
 			_strncat(path_copy, &path[i], 1);
-		}
 	}
 	return (path_copy);
 }
