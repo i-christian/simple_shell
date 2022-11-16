@@ -95,7 +95,7 @@ The previous working directory as set by the **cd** command.
 
 $ echo "echo $OLDPWD" | ./hsh
 
-/home/vagrant/printf
+/home/vagrant/
 
 ```
 
@@ -283,10 +283,11 @@ Example:
 $ ./hsh
 $ alias show=ls
 $ show
-AUTHORS           builtin_helpers.c  hsh                  hsh_read_helper.c    locatePath.c   tokenMaker.c
-README.md         errorMsgs.c        hsh_env_builtins.c   hsh_read_line.c      main.c
-alias_builtins.c  errors.c           hsh_environ.c        hsh_upper_helpers.c  shell.h
-builtin_func.c    filehandling.c     hsh_lower_helpers.c  linkedList.c         stringfuncs.c
+AUTHORS             basic_strings.c             errors.c            hsh_lower_helpers.c  locatePath.c
+README.md           builtin_advanced_helpers.c  filehandling.c      hsh_read_helper.c    main.c
+advanced_strings.c  builtin_func.c              hsh                 hsh_read_line.c      shell.h
+alias_builtins.c    builtin_helpers.c           hsh_env_builtins.c  hsh_upper_helpers.c  tokenMaker.c
+basic_error_msgs.c  errorMsgs.c                 hsh_environ.c       linkedList.c
 $
 ```
 
