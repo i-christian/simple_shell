@@ -1,8 +1,5 @@
 #include "shell.h"
 
-void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b);
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-
 /**
  * assign_lineptr - Reassigns the lineptr variable for _getline.
  * @lineptr: A buffer to store an input string.
@@ -12,20 +9,21 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
  */
 void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b)
 {
+	static size_t buffer_size = 1024;
 	if (*lineptr == NULL)
 	{
-		if (b > 1024)
+		if (b > buffer_size)
 			*n = b;
 		else
-			*n = 1024;
+			*n = buffer_size;
 		*lineptr = buffer;
 	}
 	else if (*n < b)
 	{
-		if (b > 1024)
+		if (b > buffer_size)
 			*n = b;
 		else
-			*n = 1024;
+			*n = buffer_size;
 		*lineptr = buffer;
 	}
 	else
@@ -46,6 +44,7 @@ void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b)
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
 	static ssize_t input;
+	static ssize_t buffer_size = 1024;
 	ssize_t ret;
 	char c = 'x', *buffer;
 	int r;
@@ -56,7 +55,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 		return (-1);
 	input = 0;
 
-	buffer = malloc(sizeof(char) * 1024);
+	buffer = malloc(sizeof(char) * buffer_size);
 	if (!buffer)
 		return (-1);
 
@@ -74,7 +73,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 			break;
 		}
 
-		if (input >= 1024)
+		if (input >= buffer_size)
 			buffer = _realloc(buffer, input, input + 1);
 
 		buffer[input] = c;
