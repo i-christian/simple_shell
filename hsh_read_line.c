@@ -9,7 +9,7 @@
  */
 void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b)
 {
-	static size_t buffer_size = 1024;
+	static size_t buffer_size = 4096;
 	if (*lineptr == NULL)
 	{
 		if (b > buffer_size)
@@ -44,7 +44,7 @@ void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b)
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
 	static ssize_t input;
-	static ssize_t buffer_size = 1024;
+	static ssize_t buffer_size = 4096;
 	ssize_t ret;
 	char c = 'x', *buffer;
 	int r;
