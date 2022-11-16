@@ -23,7 +23,8 @@ void sig_handler(int sig)
  */
 void launch(char **args, char **front, char *command, int ret)
 {
-	execve(command, args, environ);
+	if (execve(command, args, environ) < 0)
+		_exit(ret);
 	if (errno == EACCES)
 		ret = (create_error(args, 126));
 	free_env();
